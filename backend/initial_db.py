@@ -45,4 +45,5 @@ if db.session.query(Department).count()==0:
 #db.session.query(Department).delete()
 #db.session.commit()
 
-
+#pat=db.session.query(Patient).filter_by(pid=1).first()
+#print(pat)

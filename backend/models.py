@@ -2,17 +2,20 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import date
 from datetime import time
 from sqlalchemy import UniqueConstraint
+from flask_login import UserMixin
 db=SQLAlchemy()
 
-class Admin(db.Model):
+class Admin(db.Model,UserMixin):
     __tablename__="admin"
     id = db.Column(db.Integer, primary_key=True,autoincrement=True)
     name = db.Column(db.String, nullable=False)
     email=db.Column(db.String,unique=True,nullable=False)
     password = db.Column(db.String,nullable=False)
     
+    def get_id(self):
+        return self.email 
 
-class Doctor(db.Model):
+class Doctor(db.Model,UserMixin):
     __tablename__="doctor"
     did = db.Column(db.Integer, primary_key=True,autoincrement=True)
     name = db.Column(db.String, nullable=False)
@@ -21,8 +24,10 @@ class Doctor(db.Model):
     dept_id = db.Column(db.Integer, db.ForeignKey('department.Dept_id'), nullable=False)
     department = db.relationship('Department', backref='doctors')
 
+    def get_id(self):
+        return self.email
 
-class Patient(db.Model):
+class Patient(db.Model,UserMixin):
     __tablename__="patient"
     pid = db.Column(db.Integer, primary_key=True,autoincrement=True)
     name = db.Column(db.String, nullable=False)
@@ -31,6 +36,8 @@ class Patient(db.Model):
     #appoinmt_details=db.Column(db
     # specialisation=db.Column(db.String,ForeignKey=("department.dept_name"),nullable=False)
     
+    def get_id(self):
+        return self.email
 
 class Appointment(db.Model):
     __tablename__="appmnt"
