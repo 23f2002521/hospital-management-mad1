@@ -5,13 +5,13 @@ if db.session.query(Admin).count()==0:
     db.session.add(admin)
     db.session.commit()
 
-if db.session.query(Doctor).count()==0:
-    doctor=Doctor(name="hayam",email="hayam@gmail.com",password="H1234567",dept_id=4)
-    db.session.add(doctor)
-    db.session.commit()
-    doctor=Doctor(name="lia",email="lia@gmail.com",password="L1234567",dept_id=1)
-    db.session.add(doctor)
-    db.session.commit()
+#if db.session.query(Doctor).count()==0:
+ #   doctor=Doctor(name="hayam",email="hayam@gmail.com",password="H1234567",dept_id=4,status="good")
+  #  db.session.add(doctor)
+   # db.session.commit()
+   # doctor=Doctor(name="lia",email="lia@gmail.com",password="L1234567",dept_id=1,status="good")
+   # db.session.add(doctor)
+    #db.session.commit()
 #db.session.query(Doctor).delete()
 #db.session.commit()
 if db.session.query(Patient).count()==0:

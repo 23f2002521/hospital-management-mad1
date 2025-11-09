@@ -75,3 +75,24 @@ def doctor_dashboard():
     
     return render_template("ddashboard.html", current_doctor=current_user)
     
+@app.route('/add_doc' , methods=["GET","POST"])
+@login_required
+def add_doctor():
+    if not isinstance(current_user,Admin):
+        return "unauthorized"
+    if request.method=="POST":
+        name=request.form.get("name")
+        email=request.form.get("email")
+        password=request.form.get("password")
+       # department=request.form.get("department")
+        dept_id=request.form.get("dept_id")
+        status=request.form.get("status")
+        new_doc = db.session.query(Doctor).filter_by(email=email,password=password).first()
+        if not new_doc:
+           new_doc=Doctor(name=name,email=email,password=password,dept_id=dept_id,status=status)
+           db.session.add(new_doc)
+           db.session.commit()        
+           return redirect("/adashboard")
+        else:
+            return "email already exist"
+    return render_template("doc_reg.html")
